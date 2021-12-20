@@ -21,67 +21,69 @@ class _ProductDetailsState extends State<ProductDetails> {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black, size: 60),
       ),
-      body: FutureBuilder(
-        future: apiServices.getSingleProduct(widget.id),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(
-                    snapshot.data["image"],
-                    height: 150.h,
-                    width: double.infinity,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Center(
-                    child: Text(
-                      "\$" + snapshot.data["price"].toString(),
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+      body: SingleChildScrollView(
+        child: FutureBuilder(
+          future: apiServices.getSingleProduct(widget.id),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.network(
+                      snapshot.data["image"],
+                      height: 150.h,
+                      width: double.infinity,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Text(
-                    snapshot.data["title"],
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Chip(
-                    label: Text(
-                      snapshot.data["category"].toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Center(
+                      child: Text(
+                        "\$" + snapshot.data["price"].toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
                       ),
                     ),
-                    backgroundColor: Colors.amberAccent,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text(
-                    snapshot.data["description"],
-                    style: TextStyle(fontSize: 19.sp, color: Colors.blueGrey),
-                  )
-                ],
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(
+                      snapshot.data["title"],
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15.sp),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Chip(
+                      label: Text(
+                        snapshot.data["category"].toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      backgroundColor: Colors.amberAccent,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Text(
+                      snapshot.data["description"],
+                      style: TextStyle(fontSize: 19.sp, color: Colors.blueGrey),
+                    )
+                  ],
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.redAccent,
               ),
             );
-          }
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.redAccent,
-            ),
-          );
-        },
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
